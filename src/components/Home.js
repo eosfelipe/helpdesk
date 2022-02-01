@@ -1,20 +1,32 @@
-import { useAuth } from '../context/authContext'
-const Home = () => {
-  const { user, logout, loading } = useAuth()
+import { useEffect, useState } from 'react'
+import { HashLoader } from 'react-spinners'
 
-  const handleLogout = async () => {
-    try {
-      await logout()
-    } catch (error) {
-      console.log(error)
-    }
+import { useAuth } from '../context/authContext'
+import Table from './Table'
+
+const Home = () => {
+  const { loading } = useAuth()
+  const [data, setData] = useState([])
+  const getData = async () => {
+    const response = await fetch(process.env.REACT_APP_URL2_SHEETS)
+    const result = await response.json()
+    setData(result)
   }
 
-  if (loading) return <h1>Loading...</h1>
+  useEffect(() => {
+    getData()
+  }, [])
+
+  if (loading)
+    return (
+      <HashLoader
+        color={'#007ab4'}
+        css={{ position: 'absolute', top: '50%', left: '50%' }}
+      />
+    )
   return (
-    <div>
-      <h1>Welcome {user.displayName || user.email} </h1>
-      <button onClick={handleLogout}>logout</button>
+    <div className="content-center p-8 w-screen h-full mt-28 overflow-x-hidden">
+      <Table data={data} />
     </div>
   )
 }
