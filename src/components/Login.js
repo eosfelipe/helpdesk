@@ -35,15 +35,15 @@ const Login = () => {
     }
   }
 
-  const handleResetPassword = async () => {
-    if (!user.email) return setError('Please enter your email')
-    try {
-      await resetPassword(user.email)
-      setError('We sent you an email with link to reset your password')
-    } catch (error) {
-      setError(error.message)
-    }
-  }
+  // const handleResetPassword = async () => {
+  //   if (!user.email) return setError('Please enter your email')
+  //   try {
+  //     await resetPassword(user.email)
+  //     setError('We sent you an email with link to reset your password')
+  //   } catch (error) {
+  //     setError(error.message)
+  //   }
+  // }
 
   return (
     <div className="h-screen bg-gradient-to-tl from-green-400 to-indigo-900 w-full py-16 px-4">
