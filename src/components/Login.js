@@ -8,7 +8,7 @@ const Login = () => {
     email: '',
     password: ''
   })
-  const { login, loginWithGoogle, resetPassword } = useAuth()
+  const { login, loginWithGoogle } = useAuth()
   const navigate = useNavigate()
   const [error, setError] = useState()
   const handleChange = (e) => {
