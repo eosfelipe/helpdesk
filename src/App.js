@@ -5,10 +5,11 @@ import Login from './components/Login'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 import Register from './components/Register'
+import Reports from './components/Reports'
 import { AuthProvider } from './context/authContext'
 export default function App() {
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex items-center justify-center flex-col w-screen">
       <AuthProvider>
         <Routes>
           <Route
@@ -17,6 +18,15 @@ export default function App() {
               <ProtectedRoute>
                 <Navbar />
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Reports />
               </ProtectedRoute>
             }
           />
