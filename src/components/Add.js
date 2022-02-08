@@ -14,6 +14,7 @@ const Add = () => {
     solucion: ''
   }
   const [data, setData] = useState(INITIAL_STATE)
+  const [isSubmit, setIsSubmit] = useState(false)
   const { user } = useAuth()
   const navigate = useNavigate()
   const handleChange = ({ target: { name, value } }) => {
@@ -27,6 +28,7 @@ const Add = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsSubmit(true)
     try {
       const response = await fetch(process.env.REACT_APP_URL2_SHEETS, {
         method: 'POST',
@@ -38,6 +40,7 @@ const Add = () => {
       })
       await response.json()
       setData(INITIAL_STATE)
+      setIsSubmit(false)
       if (response.status === 429) {
         console.log('Too many requests :(')
       }
@@ -144,7 +147,11 @@ const Add = () => {
 
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className={`${
+              isSubmit
+                ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center opacity-50 cursor-not-allowed'
+                : 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2.5 text-center'
+            }`}
           >
             Aceptar
           </button>
