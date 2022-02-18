@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../context/authContext'
 
 const Add = () => {
@@ -20,7 +21,7 @@ const Add = () => {
   const handleChange = ({ target: { name, value } }) => {
     setData({
       ...data,
-      id: Date.now().toString(36) + Math.random().toString(36).substring(5),
+      id: uuidv4(),
       fecha: new Date().toLocaleString(),
       atendio: user.displayName || user.email,
       [name]: value

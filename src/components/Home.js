@@ -1,4 +1,16 @@
+import { useEffect, useState } from 'react'
+import { list } from '../api'
+import ChartAssortment from './ChartAssortment'
+
 const Home = () => {
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    list().then((result) => setData(result))
+    return () => setData(null)
+  }, [])
+
+  console.log(data)
+
   return (
     <div className="content-center p-8 w-screen h-full mt-14 md:mt-28 overflow-x-hidden">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
@@ -38,6 +50,9 @@ const Home = () => {
             far, in reverse chronological order.
           </p>
         </a>
+      </div>
+      <div className="content-center p-8">
+        {data && <ChartAssortment values={data} />}
       </div>
     </div>
   )
